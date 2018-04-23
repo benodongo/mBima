@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="ben.com.mbima.MyClientsActivity">
+    <android.support.v7.widget.Toolbar
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="#FFF"
+            android:text="ALL CLIENTS"
+            android:gravity="center"
+            android:fontFamily="sans-serif"
+            android:textSize="25sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.v7.widget.Toolbar>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:scrollbars="vertical"

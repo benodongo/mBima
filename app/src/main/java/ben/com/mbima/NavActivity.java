@@ -85,6 +85,7 @@ public class NavActivity extends AppCompatActivity
             startActivity(new Intent(NavActivity.this,ProfileActivity.class));
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            startActivity(new Intent(NavActivity.this,MyClientsActivity.class));
 
         } else if (id == R.id.nav_slideshow) {
 
