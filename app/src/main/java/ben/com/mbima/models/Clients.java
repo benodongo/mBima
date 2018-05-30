@@ -5,20 +5,72 @@ package ben.com.mbima.models;
  */
 
 public class Clients {
-    private String name;
+    private String id;
+    private String firstname;
+    private String lastname;
     private String email;
-    private String password;
+    private String phone;
+    private String insurance_co;
     private String date;
     private String policy_type;
-    private String policy_cost;
-    private String due_date;
+    private String premium;
+    private String policy_no;
+    private String duration;
+    //constructor
 
-    public String getName() {
-        return name;
+    public Clients() {
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Clients(String id, String firstname, String insurance_co, String date, String policy_type, String premium, String policy_no) {
+        this.id = id;
+        this.firstname = firstname;
+        this.insurance_co = insurance_co;
+        this.date = date;
+        this.policy_type = policy_type;
+        this.premium = premium;
+        this.policy_no = policy_no;
+    }
+
+    public Clients(String id, String firstname, String lastname, String email, String phone, String insurance_co, String date, String policy_type, String premium, String policy_no, String duration) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phone = phone;
+        this.insurance_co = insurance_co;
+        this.date = date;
+        this.policy_type = policy_type;
+        this.premium = premium;
+        this.policy_no = policy_no;
+        this.duration = duration;
+    }
+
+
+//getters and setters
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -29,12 +81,20 @@ public class Clients {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getInsurance_co() {
+        return insurance_co;
+    }
+
+    public void setInsurance_co(String insurance_co) {
+        this.insurance_co = insurance_co;
     }
 
     public String getDate() {
@@ -53,19 +113,27 @@ public class Clients {
         this.policy_type = policy_type;
     }
 
-    public String getPolicy_cost() {
-        return policy_cost;
+    public String getPremium() {
+        return premium;
     }
 
-    public void setPolicy_cost(String policy_cost) {
-        this.policy_cost = policy_cost;
+    public void setPremium(String premium) {
+        this.premium = premium;
     }
 
-    public String getDue_date() {
-        return due_date;
+    public String getPolicy_no() {
+        return policy_no;
     }
 
-    public void setDue_date(String due_date) {
-        this.due_date = due_date;
+    public void setPolicy_no(String policy_no) {
+        this.policy_no = policy_no;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 }
