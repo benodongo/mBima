@@ -31,9 +31,10 @@ public class PremiumAdapter extends RecyclerView.Adapter <PremiumAdapter.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.tv_policy_no.setText(premiums.get(i).getDate());
+        holder.tv_policy_no.setText(premiums.get(i).getPolicy_no());
         holder.tv_premium.setText(premiums.get(i).getPremium());
         holder.tv_policy.setText(premiums.get(i).getPolicy_type());
+        holder.tv_expiry.setText(premiums.get(i).getDate());
 
     }
 
@@ -44,7 +45,7 @@ public class PremiumAdapter extends RecyclerView.Adapter <PremiumAdapter.ViewHol
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        TextView tv_policy_no, tv_premium,tv_policy;
+        TextView tv_policy_no, tv_premium,tv_policy,tv_expiry;
 
 
         public ViewHolder(View itemView) {
@@ -52,6 +53,7 @@ public class PremiumAdapter extends RecyclerView.Adapter <PremiumAdapter.ViewHol
             tv_policy_no = itemView.findViewById(R.id.tv_policy_no);
             tv_premium = itemView.findViewById(R.id.tv_premium);
             tv_policy = itemView.findViewById(R.id.tv_policy);
+            tv_expiry = itemView.findViewById(R.id.tv_expiry);
         }
     }
 }

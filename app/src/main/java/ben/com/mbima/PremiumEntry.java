@@ -2,6 +2,7 @@ package ben.com.mbima;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
@@ -29,7 +30,8 @@ public class PremiumEntry extends AppCompatActivity implements View.OnClickListe
     MaterialDialog dialog;
     EditText ed_policy_no,ed_premium;
     Button btn_submit1,date;
-    String mDate,name,company,policy;
+    String name,company,policy,clientID;
+    static String mDate;
 
     Preferences preferences;
 
@@ -45,6 +47,7 @@ public class PremiumEntry extends AppCompatActivity implements View.OnClickListe
 
     }
     private void initViews() {
+        clientID = getIntent().getExtras().getString("clientID");
         name = getIntent().getExtras().getString("name");
         company = getIntent().getExtras().getString("company");
         policy = getIntent().getExtras().getString("policy");
@@ -64,6 +67,7 @@ public class PremiumEntry extends AppCompatActivity implements View.OnClickListe
         String mPremium = ed_premium.getText().toString();
         String mPolicyNo =ed_policy_no.getText().toString();
       sqliteHelper.addPremium(new Clients(null,name,company,mDate,policy,mPremium,mPolicyNo));
+      retrysubmit();
         Snackbar.make(btn_submit1, "client created successfully!  ", Snackbar.LENGTH_LONG).show();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -79,7 +83,7 @@ public class PremiumEntry extends AppCompatActivity implements View.OnClickListe
     public void datePicker2(View view){
 
         // Initialize a new date picker dialog fragment
-        DialogFragment dFragment = new NewClientActivity.DatePickerFragment();
+        DialogFragment dFragment = new DatePickerFragment();
 
         // Show the date picker dialog fragment
         dFragment.show(getSupportFragmentManager(), "Date Picker");
@@ -116,7 +120,98 @@ public class PremiumEntry extends AppCompatActivity implements View.OnClickListe
             DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
             String formattedDate = df.format(chosenDate);
 
-            NewClientActivity.mDate=formattedDate;
+            PremiumEntry.mDate=formattedDate;
+
+        }
+    }
+    //submit to remote db
+    private void retrysubmit(){
+        String params = null;
+        try {
+            params = "client_id="+java.net.URLEncoder.encode(clientID, "UTF-8")+
+                    "&insurance_company="+java.net.URLEncoder.encode(company, "UTF-8")+
+                    "&date="+java.net.URLEncoder.encode(mDate, "UTF-8")+
+                    "&policy_number="+java.net.URLEncoder.encode(ed_policy_no.getText().toString(), "UTF-8")+
+                    "&premium="+java.net.URLEncoder.encode(ed_premium.getText().toString(), "UTF-8")+
+                    "&agent_id="+java.net.URLEncoder.encode(preferences.getId(),"UTF-8");
+            //TODO
+            new PremiumEntry.submit().execute(ben.com.mbima.helpers.Constants.base_url+"api/newpremium", params);
+        } catch (java.io.UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void configureDialog(String title,String message){
+        dialog=new com.afollestad.materialdialogs.MaterialDialog.Builder(this)
+                .title(title)
+                .cancelable(false)
+                .titleGravity(com.afollestad.materialdialogs.GravityEnum.CENTER)
+                .widgetColorRes(R.color.colorPrimary)
+                .customView(R.layout.dialog, true)
+                .build();
+        View view=dialog.getCustomView();
+        android.widget.TextView messageText=(android.widget.TextView)view.findViewById(R.id.message);
+        messageText.setText(message);
+    }
+    private class submit extends android.os.AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+//            configureDialog("Client","Adding client");
+//            dialog.show();
+        }
+        protected String  doInBackground(String... params) {
+            return ben.com.mbima.network.NetworkHandler.post(params[0], params[1]);
+        }
+        protected void onPostExecute(String result) {
+//            dialog.dismiss();
+            if (result != null) {
+                try {
+                    Object json = new org.json.JSONTokener(result).nextValue();
+                    if (json instanceof org.json.JSONObject) {
+                        final org.json.JSONObject object = new org.json.JSONObject(result);
+                        String status = object.getString("status");
+                        if (status.equals("success") ) {
+
+
+                            startActivity(new Intent(getApplicationContext(),NavActivity.class));
+                            finish();
+
+
+                        } else {
+                            com.afollestad.materialdialogs.MaterialDialog.SingleButtonCallback singleButtonCallback=new com.afollestad.materialdialogs.MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@android.support.annotation.NonNull com.afollestad.materialdialogs.MaterialDialog dialog, @android.support.annotation.NonNull com.afollestad.materialdialogs.DialogAction which) {
+                                    dialog.dismiss();
+                                    retrysubmit();
+                                }
+                            };
+                            ben.com.mbima.helpers.Constants.showDialog(PremiumEntry.this,"Error",object.getString("message"),"RETRY",singleButtonCallback);
+                        }
+
+                    } else {
+                        com.afollestad.materialdialogs.MaterialDialog.SingleButtonCallback singleButtonCallback=new com.afollestad.materialdialogs.MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@android.support.annotation.NonNull com.afollestad.materialdialogs.MaterialDialog dialog, @android.support.annotation.NonNull com.afollestad.materialdialogs.DialogAction which) {
+                                dialog.dismiss();
+                                retrysubmit();
+                            }
+                        };
+                        ben.com.mbima.helpers.Constants.showDialog(PremiumEntry.this,"Error",getResources().getString(R.string.error),"RETRY",singleButtonCallback);
+                    }
+                } catch (org.json.JSONException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                com.afollestad.materialdialogs.MaterialDialog.SingleButtonCallback singleButtonCallback=new com.afollestad.materialdialogs.MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@android.support.annotation.NonNull com.afollestad.materialdialogs.MaterialDialog dialog, @android.support.annotation.NonNull com.afollestad.materialdialogs.DialogAction which) {
+                        dialog.dismiss();
+                        retrysubmit();
+                    }
+                };
+                ben.com.mbima.helpers.Constants.showDialog(PremiumEntry.this,"Error",getResources().getString(R.string.error),"RETRY",singleButtonCallback);
+            }
 
         }
     }

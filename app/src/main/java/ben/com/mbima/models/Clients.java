@@ -16,6 +16,8 @@ public class Clients {
     private String premium;
     private String policy_no;
     private String duration;
+    private String expiry_date;
+    private String due_time;
     //constructor
 
     public Clients() {
@@ -135,5 +137,21 @@ public class Clients {
 
     public void setDuration(String duration) {
         this.duration = duration;
+    }
+
+    public String getExpiry_date() {
+        return expiry_date;
+    }
+
+    public void setExpiry_date(String expiry_date) {
+        this.expiry_date = expiry_date;
+    }
+
+    public String getDue_time() {
+        return due_time;
+    }
+
+    public void setDue_time(String due_time) {
+        this.due_time = due_time;
     }
 }

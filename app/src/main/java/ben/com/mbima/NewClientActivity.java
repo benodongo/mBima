@@ -28,12 +28,12 @@ import ben.com.mbima.helpers.SqliteHelper;
 import ben.com.mbima.models.Clients;
 
 public class NewClientActivity extends AppCompatActivity implements View.OnClickListener {
-    EditText ed_fname,ed_lname,ed_email,ed_phone,ed_company,ed_policy_no,ed_premium;
+    EditText ed_fname,ed_lname,ed_email,ed_phone,ed_company,ed_policy_no,ed_premium,ed_suminsured;
     Spinner sp_policy_type,sp_duration;
    Button date;
     Button btn_submit;
     String [] policy = {"Vehicle","General","Personal Accident","Health Insurance","Education"};
-    String [] duration ={"6 Months","12 Months","18 Months","24 Months"};
+    String [] duration ={" 1 year","2 years"};
     String mPolicyType,mPolicyDuration; static  String mDate;
     SqliteHelper sqliteHelper;
     MaterialDialog dialog;
@@ -59,6 +59,7 @@ public class NewClientActivity extends AppCompatActivity implements View.OnClick
         sp_policy_type = findViewById(R.id.sp_policyType);
         sp_duration = findViewById(R.id.sp_duration);
         date = findViewById(R.id.date);
+        ed_suminsured = findViewById(R.id.ed_sum_insured);
         btn_submit = findViewById(R.id.btn_submit);
         btn_submit.setOnClickListener(this);
         //set spinner adapters
@@ -82,7 +83,7 @@ public class NewClientActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 position = sp_duration.getSelectedItemPosition();
-                mPolicyDuration = (policy[+position]);
+                mPolicyDuration = (duration[+position]);
             }
 
             @Override
@@ -103,7 +104,7 @@ public class NewClientActivity extends AppCompatActivity implements View.OnClick
         String mPolicyNo =ed_policy_no.getText().toString();
         sqliteHelper.addClient(new Clients(null,mFname,mLame,mEmail,mPhone,mCompany,mDate,mPolicyType,mPremium,mPolicyNo,mPolicyDuration));
         retrysubmit();
-        Snackbar.make(btn_submit, "client created successfully! Please Login ", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(btn_submit, "client added successfully! ", Snackbar.LENGTH_LONG).show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -160,7 +161,6 @@ public class NewClientActivity extends AppCompatActivity implements View.OnClick
        }
    }
    //submit to remote db
-   //login
    private void retrysubmit(){
        String params = null;
        try {
@@ -174,6 +174,7 @@ public class NewClientActivity extends AppCompatActivity implements View.OnClick
                    "&duration="+java.net.URLEncoder.encode(mPolicyDuration, "UTF-8")+
                    "&policy_number="+java.net.URLEncoder.encode(ed_policy_no.getText().toString(), "UTF-8")+
                    "&premium="+java.net.URLEncoder.encode(ed_premium.getText().toString(), "UTF-8")+
+                   "&sum_insured="+java.net.URLEncoder.encode(ed_suminsured.getText().toString(), "UTF-8")+
                    "&agent_id="+java.net.URLEncoder.encode(preferences.getId(),"UTF-8");
            new NewClientActivity.submit().execute(ben.com.mbima.helpers.Constants.base_url+"api/newClient", params);
        } catch (java.io.UnsupportedEncodingException e) {

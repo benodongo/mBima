@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".ViewClient">
   <LinearLayout
-
+      android:orientation="vertical"
       android:background="@drawable/splash_gradient"
       android:layout_width="match_parent"
       android:layout_height="150dp">
@@ -80,6 +80,28 @@
 
           </LinearLayout>
 
+
+
+      </LinearLayout>
+      <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+          <android.support.v7.widget.AppCompatImageButton
+              android:id="@+id/btn_phone"
+              android:background="@null"
+              android:layout_width="34dp"
+              android:layout_height="34dp"
+              android:layout_marginRight="40dp"
+              android:src="@drawable/phone_plus"/>
+          <android.support.v7.widget.AppCompatImageButton
+              android:id="@+id/btn_sms"
+              android:background="@null"
+              android:layout_marginLeft="100dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/sms"/>
       </LinearLayout>
 
   </LinearLayout>

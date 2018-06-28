@@ -51,8 +51,7 @@
                     android:layout_height="wrap_content"
                     android:drawableTint="#FF4081"
                     android:singleLine="true"
-                    android:hint="Full Names"
-                    android:inputType="textEmailAddress" />
+                    android:hint="Full Names" />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -65,7 +64,7 @@
                     android:drawableTint="#FF4081"
                     android:singleLine="true"
                     android:hint="Phone Number"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -94,7 +93,7 @@
                     android:singleLine="true"
                     android:drawableTint="#FF4081"
                     android:hint="Password"
-                    android:inputType="numberPassword" />
+                    android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
 
             <TextView

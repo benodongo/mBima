@@ -108,20 +108,24 @@ public class NavActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_profile) {
             startActivity(new Intent(NavActivity.this,ProfileActivity.class));
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_clients) {
             startActivity(new Intent(NavActivity.this,MyClientsActivity.class));
 
-        } else if (id == R.id.nav_slideshow) {
-            startActivity(new Intent(NavActivity.this,NewClientActivity.class));
-
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_report) {
+            startActivity(new Intent(NavActivity.this,ChartActivity.class));
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logout) {
+            preferences.setIsLoggedin(false);
+            preferences.setId(" ");
+            preferences.setEmail("");
+            preferences.setName("");
+            preferences.setPhone("");
+            startActivity(new Intent(NavActivity.this,LoginActivity.class));
 
         }
 

@@ -55,10 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId())
         {
             case R.id.btn_signin:
-                //retryLogin();
-
-                Intent intent = new Intent(this,NavActivity.class);
-                startActivity(intent);
+                retryLogin();
                 break;
             case R.id.btn_register:
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
@@ -111,6 +108,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             preferences.setName(object.getString("name"));
                             preferences.setEmail(object.getString("email"));
                             preferences.setPhone(object.getString("phone"));
+                            preferences.setIsLoggedin(true);
 
 
                             startActivity(new Intent(getApplicationContext(),NavActivity.class));

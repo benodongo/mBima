@@ -28,8 +28,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
-                android:src="@drawable/profile"/>
+                android:src="@drawable/account"/>
             <TextView
+                android:id="@+id/name"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
@@ -136,12 +137,13 @@
                 android:layout_height="36dp"
                 android:src="@android:drawable/ic_dialog_email"/>
             <TextView
+                android:id="@+id/email"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="iyaraoko@example.com"/>
+                android:text="test@example.com"/>
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="25dp"
@@ -154,6 +156,7 @@
                 android:layout_height="36dp"
                 android:src="@android:drawable/stat_sys_phone_call"/>
             <TextView
+                android:id="@+id/phone"
                 android:textStyle="bold"
 
                 android:layout_gravity="center_vertical"
@@ -179,7 +182,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="Add to group"/>
+                android:text="new"/>
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="25dp"
@@ -202,14 +205,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:textColor="#fff"
-        android:background="@drawable/buttonstyle"
-        android:layout_marginTop="35dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Follow Me"/>
+
 </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -128,6 +128,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         while (c.moveToNext())
         {
             Clients clients1 = new Clients();
+            clients1.setId(c.getString(c.getColumnIndex(Constants.KEY_ID)));
             clients1.setFirstname(c.getString(c.getColumnIndex(Constants.FNAME)));
             clients1.setLastname(c.getString(c.getColumnIndex(Constants.LNAME)));
             clients1.setInsurance_co(c.getString(c.getColumnIndex(Constants.INSURANCE_COMPANY)));
@@ -149,6 +150,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         while (c.moveToNext())
         {
             Clients clients1 = new Clients();
+            clients1.setId(c.getString(c.getColumnIndex(Constants.KEY_ID)));
             clients1.setFirstname(c.getString(c.getColumnIndex(Constants.FNAME)));
             clients1.setLastname(c.getString(c.getColumnIndex(Constants.LNAME)));
             clients1.setInsurance_co(c.getString(c.getColumnIndex(Constants.INSURANCE_COMPANY)));
@@ -187,7 +189,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             Clients clients1 = new Clients();
 
             clients1.setInsurance_co(c.getString(c.getColumnIndex(Constants.INSURANCE_COMPANY)));
-            clients1.setPhone(c.getString(c.getColumnIndex(Constants.POLICY_NO)));
+            clients1.setPolicy_no(c.getString(c.getColumnIndex(Constants.POLICY_NO)));
             clients1.setDate(c.getString(c.getColumnIndex(Constants.POLICY_DATE)));
             clients1.setPolicy_type(c.getString(c.getColumnIndex(Constants.POLICY)));
             clients1.setPremium(c.getString(c.getColumnIndex(Constants.PREMIUM)));
